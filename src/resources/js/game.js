@@ -72,7 +72,7 @@ function updateBoard() {
         for (let j=1; j<9; j++){
             if (Board[i][j] instanceof FigureOnBoard) {
                 let id = String.fromCharCode(i+96) + j.toString();
-                let picture = "/images/" + Board[i][j].color + "-" + Board[i][j].type + ".png";
+                let picture = "<img src=\"/images/" + Board[i][j].color + "-" + Board[i][j].type + ".png\">";
                 document.getElementById(id).innerHTML = picture;
             }
         }
