@@ -2,6 +2,11 @@ function Player(color){
     this.color = color;
 }
 
+let Board = [];
+for (let i=1; i<9; i++){
+    Board[i] = [];
+}
+
 function FigureOnBoard(type, color){
     this.type = type;
     this.color = color;
@@ -16,9 +21,11 @@ function Pawn(x, y, type){
             this.x = x;
             this.y = y;
         } else {
-            this.x = 8 - x;
-            this.y = 8 - y;
+            this.x = 9 - x;
+            this.y = 9 - y;
         }
+        Board[this.x][this.y] = new Array();
+        console.log(Board[this.x][this.y]);
         Board[this.x][this.y].push(new FigureOnBoard(this.type, Player.color));
     }
 }
@@ -43,16 +50,10 @@ function buildFiguresArray() {
     Figures.push(new Pawn(5, 1, 'king'));
 }
 
-Board = [];
-for (let i=1; i<9; i++){
-    Board[i] = [];
-}
-
 Players = [];
-Players.push(new Player('black'));
 Players.push(new Player('white'));
+Players.push(new Player('black'));
 Figures = [];
-
 
 function initialSetup(){
     buildFiguresArray();
