@@ -25,7 +25,6 @@ function Pawn(x, y, type){
             this.y = 9 - y;
         }
         Board[this.x][this.y] = new Array();
-        console.log(Board[this.x][this.y]);
         Board[this.x][this.y].push(new FigureOnBoard(this.type, Player.color));
     }
 }
@@ -66,3 +65,19 @@ function initialSetup(){
 
 initialSetup();
 localStorage.setItem('Board', JSON.stringify(Board));
+
+function updateBoard() {
+    let Board = JSON.parse(localStorage.getItem('Board'));
+    for (let i=1; i<9; i++){
+        for (let j=1; j<9; j++){
+            if (Board[i][j] instanceof FigureOnBoard) {
+                let id = String.fromCharCode(i+96) + j.toString();
+                let picture = "/images/" + Board[i][j].color + "-" + Board[i][j].type + ".png";
+                document.getElementById(id).innerHTML = picture;
+            }
+        }
+    }
+}
+
+updateBoard();
+
