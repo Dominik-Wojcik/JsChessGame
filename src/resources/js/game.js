@@ -2,6 +2,11 @@ function Player(color){
     this.color = color;
 }
 
+function FigureOnBoard(type, color){
+    this.type = type;
+    this.color = color;
+}
+
 function Pawn(x, y, type){
     this.type = type;
     this.x = x;
@@ -14,8 +19,7 @@ function Pawn(x, y, type){
             this.x = 8 - x;
             this.y = 8 - y;
         }
-        this.color = Player.color;
-        console.log('Pawn placed:', this.color, this.x, this.y, this.type);
+        Board[this.x][this.y].push(new FigureOnBoard(this.type, Player.color));
     }
 }
 
@@ -39,11 +43,16 @@ function buildFiguresArray() {
     Figures.push(new Pawn(5, 1, 'king'));
 }
 
+Board = [];
+for (let i=1; i<9; i++){
+    Board[i] = [];
+}
+
 Players = [];
 Players.push(new Player('black'));
 Players.push(new Player('white'));
-
 Figures = [];
+
 
 function initialSetup(){
     buildFiguresArray();
@@ -55,3 +64,4 @@ function initialSetup(){
 }
 
 initialSetup();
+localStorage.setItem('Board', JSON.stringify(Board));
