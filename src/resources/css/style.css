@@ -5,7 +5,7 @@
     justify-content: center;
 }
 
-.field-a, .field-b, .field-c, .field-d, .field-e, .field-f, .field-g, .field-h{
+.field{
     width: 3em;
     height: 3em;
     border: 0.1em black solid;
