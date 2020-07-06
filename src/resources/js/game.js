@@ -3,7 +3,10 @@ function Player(color){
 }
 
 function Pawn(x, y, type){
-    let placeOnBoard = function (Player) {
+    this.type = type;
+    this.x = x;
+    this.y = y;
+    this.placeOnBoard = function (Player) {
         if (Player.color === 'white') {
             this.x = x;
             this.y = y;
@@ -12,41 +15,43 @@ function Pawn(x, y, type){
             this.y = 8 - y;
         }
         this.color = Player.color;
+        console.log('Pawn placed:', this.color, this.x, this.y, this.type);
     }
 }
 
 function addTwoCorrespondingFigures(variance, type){
-    Figures.add(new Pawn(variance, 1, type));
-    Figures.add(new Pawn(9-variance, 1, type));
+    Figures.push(new Pawn(variance, 1, type));
+    Figures.push(new Pawn(9-variance, 1, type));
 }
 
 function addSmallPawns(){
     for (let i = 1; i < 9; i++) {
-        Figures.add(new Pawn(i, 2, smallPawn));
+        Figures.push(new Pawn(i, 2, 'pawn'));
     }
 }
 
-Players = [];
-Players.add(new Player(black));
-Players.add(new Player(white));
-
-Figures = [];
-
 function buildFiguresArray() {
     addSmallPawns();
-    addTwoCorrespondingFigures(1, 'tower');
+    addTwoCorrespondingFigures(1, 'rook');
     addTwoCorrespondingFigures(2, 'knight');
-    addTwoCorrespondingFigures(3, 'messenger');
-    Figures.add(new Pawn(4, 1, 'queen'));
-    Figures.add(new Pawn(5, 1, 'king'));
+    addTwoCorrespondingFigures(3, 'bishop');
+    Figures.push(new Pawn(4, 1, 'queen'));
+    Figures.push(new Pawn(5, 1, 'king'));
 }
 
+Players = [];
+Players.push(new Player('black'));
+Players.push(new Player('white'));
+
+Figures = [];
 
 function initialSetup(){
     buildFiguresArray();
     for (Player of Players){
-        for (Figure of Figures){
-            Figure.placeOnBoard(Player);
+        for (figure of Figures){
+            figure.placeOnBoard(Player);
         }
     }
 }
+
+initialSetup();
