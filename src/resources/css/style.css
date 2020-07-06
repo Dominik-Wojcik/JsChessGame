@@ -1,0 +1,21 @@
+#container{
+    background-color: grey;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.field-a, .field-b, .field-c, .field-d, .field-e, .field-f, .field-g, .field-h{
+    width: 3em;
+    height: 3em;
+    border: 0.1em black solid;
+}
+
+#board{
+    display: inline-flex;
+    flex-direction: column;
+}
+#row-1, #row-2, #row-3, #row-4, #row-5, #row-6, #row-7, #row-8{
+    display: flex;
+    flex-direction: row;
+}
