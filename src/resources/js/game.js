@@ -5,14 +5,32 @@ function Player(color){
 let Board = [];
 for (let i=1; i<9; i++){
     Board[i] = [];
+    for (let j=1; j<9; j++)
+        Board[i] = [];
 }
 
 function FigureOnBoard(type, color){
     this.type = type;
     this.color = color;
     this.availableMoves = function(Player) {
-
+        switch (this.type) {
+            case 'pawn': pawnMoves(Player);
+            case 'rook': rookMoves(Player);
+        }
     }
+}
+
+function pawnMoves(Player){
+    if (Player==='white'){
+        this.start = 1;
+        this.direction = 1;
+    } else {
+        this.start = 8;
+        this.direction = -1;
+    }
+
+
+
 }
 
 function Pawn(x, y, type){
