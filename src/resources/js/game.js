@@ -70,10 +70,12 @@ function updateBoard() {
     let Board = JSON.parse(localStorage.getItem('Board'));
     for (let i=1; i<9; i++){
         for (let j=1; j<9; j++){
-            if (Board[i][j] instanceof FigureOnBoard) {
+            if (Board[i][j] !== null) {
                 let id = String.fromCharCode(i+96) + j.toString();
                 let picture = "<img src=\"/images/" + Board[i][j].color + "-" + Board[i][j].type + ".png\">";
                 document.getElementById(id).innerHTML = picture;
+            } else {
+
             }
         }
     }
