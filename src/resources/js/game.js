@@ -14,7 +14,7 @@ function Field(){
 }
 
 isOccupied = (field) => field.occupyingFigure.type !== 'none';
-figuresPicture = (figure) => "<img src=\"/JsChessGame/src/resources/images/" + figure.color + "-" + figure.type + ".png\">"
+figuresPicture = (figure) => "<img onmouseover=\"highlightOn(this)\" onmouseout=\"highlightOff(this)\" src=\"/JsChessGame/src/resources/images/" + figure.color + "-" + figure.type + ".png\">"
 
 function FigureOnBoard(type, color){
     this.type = type;
@@ -104,5 +104,6 @@ function updateBoard() {
     }
 }
 
-updateBoard();
 
+
+updateBoard();
