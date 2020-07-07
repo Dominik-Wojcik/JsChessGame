@@ -17,7 +17,6 @@ function Field(){
 function FigureOnBoard(type, color){
     this.type = type;
     this.color = color;
-    this.getPicture = () => "<img src=\"/JsChessGame/src/resources/images/" + this.color + "-" + this.type + ".png\">";
     this.availableMoves = function(Player) {
         switch (this.type) {
             case 'pawn': pawnMoves(Player);
@@ -94,8 +93,9 @@ function updateBoard() {
     for (let i=1; i<9; i++){
         for (let j=1; j<9; j++){
             let id = String.fromCharCode(j+96) + i.toString();
-            if (Board[i][j].isOccupied()) {
-                document.getElementById(id).innerHTML = Board[i][j].occupyingFigure.getPicture();
+            if (Board[i][j].occupyingFigure.type !== 'none') {
+                let picture = "<img src=\"/JsChessGame/src/resources/images/" + Board[i][j].occupyingFigure.color + "-" + Board[i][j].occupyingFigure.type + ".png\">"
+                document.getElementById(id).innerHTML = picture;
             } else {
                 document.getElementById(id).innerHTML = "";
             }
