@@ -10,6 +10,9 @@ for (let i=1; i<9; i++){
 function FigureOnBoard(type, color){
     this.type = type;
     this.color = color;
+    this.availableMoves = function(Player) {
+
+    }
 }
 
 function Pawn(x, y, type){
@@ -71,7 +74,7 @@ function updateBoard() {
     for (let i=1; i<9; i++){
         for (let j=1; j<9; j++){
             if (Board[i][j] !== null) {
-                let id = String.fromCharCode(i+96) + j.toString();
+                let id = String.fromCharCode(j+96) + i.toString();
                 let picture = "<img src=\"/JsChessGame/src/resources/images/" + Board[i][j][0].color + "-" + Board[i][j][0].type + ".png\">";
                 document.getElementById(id).innerHTML = picture;
             } else {
