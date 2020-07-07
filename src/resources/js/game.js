@@ -6,12 +6,18 @@ let Board = [];
 for (let i=1; i<9; i++){
     Board[i] = [];
     for (let j=1; j<9; j++)
-        Board[i] = [];
+        Board[i][j] = new Field();
+}
+
+function Field(){
+    this.occupyingFigure = new FigureOnBoard('none', 'none');
+    this.isOccupied = () => this.occupyingFigure.type !== 'none';
 }
 
 function FigureOnBoard(type, color){
     this.type = type;
     this.color = color;
+    this.getPicture = () => "<img src=\"/JsChessGame/src/resources/images/" + this.color + "-" + this.type + ".png\">";
     this.availableMoves = function(Player) {
         switch (this.type) {
             case 'pawn': pawnMoves(Player);
@@ -28,9 +34,6 @@ function pawnMoves(Player){
         this.start = 8;
         this.direction = -1;
     }
-
-
-
 }
 
 function Pawn(x, y, type){
@@ -45,8 +48,7 @@ function Pawn(x, y, type){
             this.x = x;
             this.y = 9 - y;
         }
-        Board[this.x][this.y] = new Array();
-        Board[this.x][this.y].push(new FigureOnBoard(this.type, Player.color));
+        Board[this.x][this.y].occupyingFigure = new FigureOnBoard(this.type, Player.color);
     }
 }
 
@@ -91,12 +93,11 @@ function updateBoard() {
     let Board = JSON.parse(localStorage.getItem('Board'));
     for (let i=1; i<9; i++){
         for (let j=1; j<9; j++){
-            if (Board[i][j] !== null) {
-                let id = String.fromCharCode(j+96) + i.toString();
-                let picture = "<img src=\"/JsChessGame/src/resources/images/" + Board[i][j][0].color + "-" + Board[i][j][0].type + ".png\">";
-                document.getElementById(id).innerHTML = picture;
+            let id = String.fromCharCode(j+96) + i.toString();
+            if (Board[i][j].isOccupied()) {
+                document.getElementById(id).innerHTML = Board[i][j].occupyingFigure.getPicture();
             } else {
-
+                document.getElementById(id).innerHTML = "";
             }
         }
     }
