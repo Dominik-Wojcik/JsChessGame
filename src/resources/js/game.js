@@ -24,7 +24,7 @@ function Pawn(x, y, type){
             this.x = x;
             this.y = y;
         } else {
-            this.x = 9 - x;
+            this.x = x;
             this.y = 9 - y;
         }
         Board[this.x][this.y] = new Array();
