@@ -72,7 +72,7 @@ function updateBoard() {
         for (let j=1; j<9; j++){
             if (Board[i][j] !== null) {
                 let id = String.fromCharCode(i+96) + j.toString();
-                let picture = "<img src=\"/images/" + Board[i][j][0].color + "-" + Board[i][j][0].type + ".png\">";
+                let picture = "<img src=\"/JsChessGame/src/resources/images/" + Board[i][j][0].color + "-" + Board[i][j][0].type + ".png\">";
                 document.getElementById(id).innerHTML = picture;
             } else {
 
