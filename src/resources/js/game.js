@@ -24,6 +24,7 @@ function FigureOnBoard(type, color){
         switch (this.type) {
             case 'pawn': pawnMoves(Player);
             case 'rook': rookMoves(Player);
+            case 'bishop': bishopMoves(Player);
         }
     }
 }
@@ -72,6 +73,29 @@ function rookMoves(Player, i, j){
     }
     return moves;
 }
+
+function bishopMoves(Player, i, j){
+    let moves = [];
+    let directions = [[1, 1], [-1, 1], [-1, -1], [1, -1]];
+    for (direction of directions){
+        let ii = i + direction[0];
+        let jj = j + direction[1];
+        while (ii > 0 && jj > 0 && ii < 9 && jj < 9){
+            if (Board[ii][jj].occupyingFigure.type === 'none'){
+                moves.push(Board[ii][jj]);
+            }   else if (Board[ii][jj].occupyingFigure.color !== Player) {
+                moves.push(Board[ii][jj]);
+                break;
+            }   else {
+                break;
+            }
+            ii += direction[0];
+            jj += direction[1];
+        }
+    }
+    return moves;
+}
+
 
 function Pawn(x, y, type){
     this.type = type;
