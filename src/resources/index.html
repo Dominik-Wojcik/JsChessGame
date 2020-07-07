@@ -5,10 +5,26 @@
     <title>Chess</title>
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <script src="js/game.js" async></script>
+    <script src="js/sidepanel.js" async></script>
 </head>
 <body>
+<div id="mySidepanel" class="sidepanel">
+    <a href="javascript:void(0)" class="closebutton" onclick="closePanel()">&times;</a>
+    <h3>Move history</h3>
+    <div id="move-hisory">
+        <p>h3=>b3</p>
+        <p>h3=>b3</p>
+        <p>h3=>b3</p>
+        <p>h3=>b3</p>
+        <p>h3=>b3</p>
+        <p>h3=>b3</p>
+        <p>h3=>b3</p>
+        <p>h3=>b3</p>
+    </div>
+</div>
 <div id="container">
     <h3 id="turn">Whites Turn</h3>
+    <div id="timer"><h2>Time left 0:00</h2></div>
     <div id="board">
         <div class="mark-row">
             <div class="mark">A</div><div class="mark">B</div><div class="mark">C</div><div class="mark">D</div><div class="mark">E</div><div class="mark">F</div><div class="mark">G</div><div class="mark">H</div>
@@ -41,7 +57,26 @@
             <div class="mark">A</div><div class="mark">B</div><div class="mark">C</div><div class="mark">D</div><div class="mark">E</div><div class="mark">F</div><div class="mark">G</div><div class="mark">H</div>
         </div>
     </div>
-    <button type="button">RESET</button>
+    <button class="openbutton" onclick="openPanel()">View move history</button>
+    <hr>
+    <div id="setup-box">
+        <div id="setup-time">
+            <div id="minutes">
+                <h4>MINUTES</h4>
+                <input type="number" id="minute-input" placeholder="min">:
+            </div>
+            <div id="seconds">
+                <h4>SECONDS</h4>
+                <input type="number" id="second-input" placeholder="sec">
+            </div>
+        </div>
+        <div id="bonus-time">
+            <h4>BONUS TIME</h4>
+            <input type="number" id="bonus-input" placeholder="sec">
+        </div>
+        <h3>Press "RESET" to initiate board</h3>
+        <button type="button" onclick="initialSetup()">RESET</button>
+    </div>
 </div>
 
 </body>
