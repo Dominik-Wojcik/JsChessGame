@@ -27,14 +27,27 @@ function FigureOnBoard(type, color){
     }
 }
 
-function pawnMoves(Player){
-    if (Player==='white'){
-        this.start = 1;
-        this.direction = 1;
-    } else {
-        this.start = 8;
-        this.direction = -1;
+function pawnMoves(Player, i, j){
+    let moves = [];
+    let start = 1;
+    let direction = 1;
+    if (Player!=='white'){
+        start += 7;
+        direction *= -1;
     }
+    if (!isOccupied(Board[i][j+direction])){
+        moves.push(Board[i][j+direction]);
+        if (j === start+direction && !isOccupied(Board[i][j+2*direction])){
+            moves.push(Board[i][j+2*direction]);
+        }
+    }
+    if (isOccupied(Board[i+1][j+direction])){
+        if (Board[i+direction][j-1].occupyingFigure.color !== Player) moves.push(Board[i+direction][j-1]);
+        }
+        if (isOccupied(Board[i-1][j+direction]) ){
+            if (Board[i+direction][j+1].occupyingFigure.color !== Player) moves.push(Board[i+direction][j+1]);
+        }
+    return moves;
 }
 
 function Pawn(x, y, type){
