@@ -11,8 +11,10 @@ for (let i=1; i<9; i++){
 
 function Field(){
     this.occupyingFigure = new FigureOnBoard('none', 'none');
-    this.isOccupied = () => this.occupyingFigure.type !== 'none';
 }
+
+isOccupied = (field) => field.occupyingFigure.type !== 'none';
+figuresPicture = (figure) => "<img src=\"/JsChessGame/src/resources/images/" + figure.color + "-" + figure.type + ".png\">"
 
 function FigureOnBoard(type, color){
     this.type = type;
@@ -93,9 +95,8 @@ function updateBoard() {
     for (let i=1; i<9; i++){
         for (let j=1; j<9; j++){
             let id = String.fromCharCode(j+96) + i.toString();
-            if (Board[i][j].occupyingFigure.type !== 'none') {
-                let picture = "<img src=\"/JsChessGame/src/resources/images/" + Board[i][j].occupyingFigure.color + "-" + Board[i][j].occupyingFigure.type + ".png\">"
-                document.getElementById(id).innerHTML = picture;
+            if (isOccupied(Board[i][j])) {
+                document.getElementById(id).innerHTML = figuresPicture(Board[i][j].occupyingFigure);
             } else {
                 document.getElementById(id).innerHTML = "";
             }
