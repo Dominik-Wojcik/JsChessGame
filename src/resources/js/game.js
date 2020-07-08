@@ -139,6 +139,7 @@ function queenMoves(Player, i, j){
 
 function kingMoves(Player, i, j){
     let moves = [];
+    let directions = [[1, 1], [-1, 1], [-1, -1], [1, -1], [1, 0], [-1, 0], [0, 1],[0, -1]];
     return moves;
 }
 
