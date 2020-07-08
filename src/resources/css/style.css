@@ -111,3 +111,9 @@ input{
     margin-left: 12em;
 }
 
+.highlighted {
+    background: green;
+    width: 4em;
+    height: 4em;
+    border: 0.1em black solid;
+}
