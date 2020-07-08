@@ -3,14 +3,15 @@ function Player(color){
 }
 
 let Board = [];
+
+function Field(){
+    this.occupyingFigure = new FigureOnBoard('none', 'none');
+}
+
 for (let i=1; i<9; i++){
     Board[i] = [];
     for (let j=1; j<9; j++)
         Board[i][j] = new Field();
-}
-
-function Field(){
-    this.occupyingFigure = new FigureOnBoard('none', 'none');
 }
 
 isOccupied = (field) => field.occupyingFigure.type !== 'none';
@@ -23,18 +24,115 @@ function FigureOnBoard(type, color){
         switch (this.type) {
             case 'pawn': pawnMoves(Player);
             case 'rook': rookMoves(Player);
+            case 'bishop': bishopMoves(Player);
+            case 'queen': queenMoves(Player);
+            case 'knight': knightMoves(Player);
         }
     }
 }
 
-function pawnMoves(Player){
-    if (Player==='white'){
-        this.start = 1;
-        this.direction = 1;
-    } else {
-        this.start = 8;
-        this.direction = -1;
+function knightMoves(Player, i, j){
+    let moves = [];
+    let directions = [[2, 1], [1, 2], [-1, -2], [-2, -1], [2, -1], [-2, 1], [-1, 2], [1, -2]];
+    for (direction of directions){
+        let ii = i + direction[0];
+        let jj = j + direction[1];
+        if (ii > 0 && jj > 0 && ii < 9 && jj < 9){
+            if (Board[ii][jj].occupyingFigure.color !== Player){
+                moves.push(Board[ii][jj]);
+            }
+        }
     }
+    return moves;
+}
+
+function pawnMoves(Player, i, j){
+    let moves = [];
+    let start = 1;
+    let direction = 1;
+    if (Player!=='white'){
+        start += 7;
+        direction *= -1;
+    }
+    if (!isOccupied(Board[i][j+direction])){
+        moves.push(Board[i][j+direction]);
+        if (j === start+direction && !isOccupied(Board[i][j+2*direction])){
+            moves.push(Board[i][j+2*direction]);
+        }
+    }
+    if (isOccupied(Board[i+1][j+direction])){
+        if (Board[i+direction][j-1].occupyingFigure.color !== Player) moves.push(Board[i+direction][j-1]);
+        }
+        if (isOccupied(Board[i-1][j+direction]) ){
+            if (Board[i+direction][j+1].occupyingFigure.color !== Player) moves.push(Board[i+direction][j+1]);
+        }
+    return moves;
+}
+
+function rookMoves(Player, i, j){
+    let moves = [];
+    let directions = [[1, 0], [-1, 0], [0, 1],[0, -1]];
+    for (direction of directions){
+        let ii = i + direction[0];
+        let jj = j + direction[1];
+        while (ii > 0 && jj > 0 && ii < 9 && jj < 9){
+            if (Board[ii][jj].occupyingFigure.type === 'none'){
+                moves.push(Board[ii][jj]);
+            }   else if (Board[ii][jj].occupyingFigure.color !== Player) {
+                moves.push(Board[ii][jj]);
+                break;
+            }   else {
+                break;
+            }
+            ii += direction[0];
+            jj += direction[1];
+        }
+    }
+    return moves;
+}
+
+function bishopMoves(Player, i, j){
+    let moves = [];
+    let directions = [[1, 1], [-1, 1], [-1, -1], [1, -1]];
+    for (direction of directions){
+        let ii = i + direction[0];
+        let jj = j + direction[1];
+        while (ii > 0 && jj > 0 && ii < 9 && jj < 9){
+            if (Board[ii][jj].occupyingFigure.type === 'none'){
+                moves.push(Board[ii][jj]);
+            }   else if (Board[ii][jj].occupyingFigure.color !== Player) {
+                moves.push(Board[ii][jj]);
+                break;
+            }   else {
+                break;
+            }
+            ii += direction[0];
+            jj += direction[1];
+        }
+    }
+    return moves;
+}
+
+function queenMoves(Player, i, j){
+    let moves = [];
+    let directions = [[1, 1], [-1, 1], [-1, -1], [1, -1], [1, 0], [-1, 0], [0, 1],[0, -1]];
+    for (direction of directions){
+        let ii = i + direction[0];
+        let jj = j + direction[1];
+        while (ii > 0 && jj > 0 && ii < 9 && jj < 9){
+            if (Board[ii][jj].occupyingFigure.type === 'none'){
+                moves.push(Board[ii][jj]);
+            }   else if (Board[ii][jj].occupyingFigure.color !== Player) {
+                moves.push(Board[ii][jj]);
+                break;
+            }   else {
+                break;
+            }
+            ii += direction[0];
+            jj += direction[1];
+        }
+    }
+    return moves;
 }
 
 function Pawn(x, y, type){
