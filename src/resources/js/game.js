@@ -135,6 +135,11 @@ function queenMoves(Player, i, j){
     return moves;
 }
 
+function kingMoves(Player, i, j){
+    let moves = [];
+    return moves;
+}
+
 function Pawn(x, y, type){
     this.type = type;
     this.x = x;
