@@ -60,12 +60,12 @@ function pawnMoves(Player, i, j){
             moves.push(Board[i][j+2*direction]);
         }
     }
-    if (isOccupied(Board[i+1][j+direction])){
-        if (Board[i+direction][j-1].occupyingFigure.color !== Player) moves.push(Board[i+direction][j-1]);
-        }
-        if (isOccupied(Board[i-1][j+direction]) ){
-            if (Board[i+direction][j+1].occupyingFigure.color !== Player) moves.push(Board[i+direction][j+1]);
-        }
+    if (i+1 < 9 && isOccupied(Board[i+1][j+direction])){
+        if (Board[i+1][j+direction].occupyingFigure.color !== Player) moves.push(Board[i+1][j+direction]);
+    }
+    if (i-1 < 9 && isOccupied(Board[i-1][j+direction])){
+        if (Board[i-1][j+direction].occupyingFigure.color !== Player) moves.push(Board[i-1][j+direction]);
+    }
     return moves;
 }
 
@@ -207,5 +207,4 @@ function updateBoard() {
     }
 }
 
-updateBoard();
 
