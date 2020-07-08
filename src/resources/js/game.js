@@ -10,8 +10,9 @@ function Field(i, j){
     this.occupyingFigure = new FigureOnBoard('none', 'none');
 }
 function getSymbol(field) {
-        console.log(field);
+        console.log(field.i, field.j)
         let symbol = String.fromCharCode(field.i+96) + field.j.toString();
+        console.log(symbol);
         return symbol;
     }
 
