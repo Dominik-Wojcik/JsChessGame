@@ -9,6 +9,11 @@ function Field(i, j){
     this.j=j;
     this.occupyingFigure = new FigureOnBoard('none', 'none');
 }
+function getSymbol(field) {
+        console.log(field);
+        let symbol = String.fromCharCode(field.i+96) + field.j.toString();
+        return symbol;
+    }
 
 for (let i=1; i<9; i++){
     Board[i] = [];

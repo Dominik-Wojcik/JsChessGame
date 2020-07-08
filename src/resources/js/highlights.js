@@ -27,8 +27,8 @@ function highlightOn(img) {
     }
     console.log(moves);
     for (element of moves) {
-        console.log("Moves:", element);
-
+        console.log("Moves:", getSymbol(element));
+        document.getElementById(getSymbol(element)).className = "highlighted";
     }
 }
 
