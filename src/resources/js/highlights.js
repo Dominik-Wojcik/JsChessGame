@@ -3,7 +3,7 @@ function highlightOn(img) {
     let parentId = img.parentElement.id;
     parentId = parentId.split("");
     let j = parentId[0].charCodeAt(0) - 96;
-    let i = parentId[1];
+    let i = parseInt(parentId[1]);
     console.log(i, j);
     console.log(Board[i][j]);
     let moves;
@@ -27,13 +27,9 @@ function highlightOn(img) {
     }
     console.log(moves);
     for (element of moves) {
-        console.log(element);
+        console.log("Moves:", element);
 
     }
-//    for (let b = j; b < j+2; b++){
-//        let id = String.fromCharCode(b+96) + i.toString();
-//        document.getElementById(id).className = "highlighted";
-//    }
 }
 
 function highlightOff(img) {

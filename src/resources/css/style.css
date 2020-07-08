@@ -112,7 +112,7 @@ input{
 }
 
 .highlighted {
-    background: green;
+    background: green !important;
     width: 4em;
     height: 4em;
     border: 0.1em black solid;
