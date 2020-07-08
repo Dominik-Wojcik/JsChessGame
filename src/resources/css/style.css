@@ -17,7 +17,7 @@ h3, h4{
 .field{
     width: 4em;
     height: 4em;
-    border: 0.1em black solid;
+    /*border: 0.1em black solid;*/
 }
 
 #board{
@@ -70,6 +70,20 @@ button {
     left: -0.5em;
 }
 
+#white-time, #black-time{
+    font-size: 3em;
+    position: absolute;
+    top: 4em;
+}
+
+#white-time{
+    left: 6em;
+}
+
+#black-time{
+    right: 6em;
+}
+
 button:hover {
     background-color: #444;
 }
@@ -79,6 +93,7 @@ input{
     margin-top: 1em;
     margin-left: 1em;
     margin-right: 1em;
+    padding: 0.5em;
 }
 
 #setup-time{
