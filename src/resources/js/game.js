@@ -4,14 +4,16 @@ function Player(color){
 
 let Board = [];
 
-function Field(){
+function Field(i, j){
+    this.i=i;
+    this.j=j;
     this.occupyingFigure = new FigureOnBoard('none', 'none');
 }
 
 for (let i=1; i<9; i++){
     Board[i] = [];
     for (let j=1; j<9; j++)
-        Board[i][j] = new Field();
+        Board[i][j] = new Field(i,j);
 }
 
 isOccupied = (field) => field.occupyingFigure.type !== 'none';
