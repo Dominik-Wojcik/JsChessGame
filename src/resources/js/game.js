@@ -65,7 +65,7 @@ function pawnMoves(Player, i, j){
     if (i+1 < 9 && isOccupied(Board[i+1][j+direction])){
         if (Board[i+1][j+direction].occupyingFigure.color !== Player) moves.push(Board[i+1][j+direction]);
     }
-    if (i-1 < 9 && isOccupied(Board[i-1][j+direction])){
+    if (i-1 > 0 && isOccupied(Board[i-1][j+direction])){
         if (Board[i-1][j+direction].occupyingFigure.color !== Player) moves.push(Board[i-1][j+direction]);
     }
     return moves;
