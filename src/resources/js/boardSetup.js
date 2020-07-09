@@ -16,7 +16,6 @@ function Field(i, j){
 
 function getSymbol(field) {
     let symbol = String.fromCharCode(field.i+96) + field.j.toString();
-    console.log(symbol);
     return symbol;
 }
 
@@ -91,6 +90,11 @@ Figures = [];
 
 function initialSetup(){
     buildFiguresArray();
+    for (let i=1; i<9; i++){
+        Board[i] = [];
+        for (let j=1; j<9; j++)
+            Board[i][j] = new Field(i,j);
+    }
     activePlayer = 'white';
     for (Player of Players){
         for (figure of Figures){
@@ -98,9 +102,6 @@ function initialSetup(){
         }
     }
 }
-
-initialSetup();
-localStorage.setItem('Board', JSON.stringify(Board));
 
 function updateBoard() {
     let Board = JSON.parse(localStorage.getItem('Board'));
@@ -116,4 +117,3 @@ function updateBoard() {
     }
 }
 
-updateBoard();

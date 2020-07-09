@@ -7,7 +7,7 @@
     <script src="js/boardSetup.js" defer></script>
     <script src="js/game.js" defer></script>
     <script src="js/sidePanel.js" defer></script>
-    <script src="js/timer.js" defer></script>
+    <script src="js/timer.js" async></script>
     <script src="js/boardFlip.js" defer></script>
     <script src="js/highlights.js" defer></script>
 </head>
@@ -69,20 +69,20 @@
         <div id="setup-time">
             <div id="minutes">
                 <h4>MINUTES</h4>
-                <input type="number" id="minute-input" placeholder="min">:
+                <input type="number" id="minute-input" placeholder="min" value="5">:
             </div>
             <div id="seconds">
                 <h4>SECONDS</h4>
-                <input type="number" id="second-input" placeholder="sec">
+                <input type="number" id="second-input" placeholder="sec" value="0">
             </div>
         </div>
         <div id="bonus-time">
             <h4>BONUS TIME</h4>
-            <input type="number" id="bonus-input" placeholder="sec">
+            <input type="number" id="bonus-input" placeholder="sec" value="5">
         </div>
         <button type="button" onclick="startTimer()">START</button>
         <h3>Press "START" to initiate board</h3>
-        <button type="button" onclick="flipBoard();switchTimers()">Switch</button>
+<!--        <button type="button" onclick="flipBoard();switchTimers()">Switch</button>-->
     </div>
 
 </div>

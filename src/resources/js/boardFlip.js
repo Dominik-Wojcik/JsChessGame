@@ -6,9 +6,7 @@ window.onload = function () {
 function flipBoard() {
     if (document.getElementById("board").style.flexDirection === 'column'){
         document.getElementById("board").style.flexDirection = 'column-reverse';
-        invertRows();
     }else{
         document.getElementById("board").style.flexDirection = 'column';
-        invertRows();
     }
 }

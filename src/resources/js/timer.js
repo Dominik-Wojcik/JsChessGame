@@ -1,6 +1,6 @@
 let counter;
+let turn ;
 let isCounting = false;
-let turn = "white";
 let timer;
 let times;
 let bonusTime;
@@ -18,6 +18,12 @@ function getTime(time) {
 }
 
 function startTimer() {
+    if (turn === 'black') flipBoard();
+    turn = 'white';
+    initialSetup();
+    document.getElementById("prompter").innerHTML = switchColor(turn).charAt(0).toUpperCase() + switchColor(turn).slice(1) + "'s turn";
+    localStorage.setItem('Board', JSON.stringify(Board));
+    updateBoard();
     let minutes = parseInt(document.getElementById("minute-input").value);
     let seconds = minutes*60 + parseInt(document.getElementById("second-input").value);
     bonusTime = parseInt(document.getElementById("bonus-input").value);
@@ -25,11 +31,11 @@ function startTimer() {
         alert("Gametime has to be longer than 1 minute")
     }else {
         times = {
-            "white": seconds,
-            "black": seconds
+            'white': seconds,
+            'black': seconds
         };
-        document.getElementById("black-time").innerText = getTime(times["black"]);
-        document.getElementById("white-time").innerText = getTime(times["white"]);
+        document.getElementById("black-time").innerText = getTime(times['black']);
+        document.getElementById("white-time").innerText = getTime(times['white']);
         if (isCounting === false) {
             isCounting = true;
             timer = setInterval(function () {
@@ -46,23 +52,23 @@ function startTimer() {
 }
 
 function switchTimers(){
-    if (turn === "white"){
+    if (turn === 'white'){
         addBonusTime();
-        turn = "black";
+        turn = 'black';
 
     } else{
         addBonusTime();
-        turn = "white";
+        turn = 'white';
     }
 }
 
 function addBonusTime() {
     times[turn] += bonusTime;
-    document.getElementById(turn +"-time").innerText = getTime(times[turn]);
+    document.getElementById(turn + "-time").innerText = getTime(times[turn]);
     document.getElementById("prompter").innerHTML = switchColor(turn).charAt(0).toUpperCase() + switchColor(turn).slice(1) + "'s turn";
 }
 
 function switchColor(color) {
-    if (color === "white") return "black";
-    else return "white";
+    if (color === 'white') return 'black';
+    else return 'white';
 }
