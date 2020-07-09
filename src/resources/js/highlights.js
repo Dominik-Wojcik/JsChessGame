@@ -85,7 +85,14 @@ function drop(ev) {
     let jj = thisFieldNumbers[1];
     Board[ii][jj].occupyingFigure.color = activePlayer;
     Board[ii][jj].occupyingFigure.type = type;
+    checkForPromotion(Board[ii][jj]);
     proceedToNextTurn();
+}
+
+function checkForPromotion(field){
+    if (field.j === getPromotionArea(activePlayer) && field.occupyingFigure.type === 'pawn'){
+        field.occupyingFigure.type = 'queen';
+    }
 }
 
 function proceedToNextTurn(){

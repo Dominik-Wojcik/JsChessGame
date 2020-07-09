@@ -7,6 +7,7 @@ const blackStart = 8;
 const whiteDirection = 1;
 const blackDirection = -1;
 const getOp = (Player) => {if (Player === 'white') return 'black'; else {return 'white'}}
+const getPromotionArea = (Player) => {if (Player === 'white') return blackStart; else {return whiteStart}}
 const opDirection = (Player) => {if (Player === 'white') return blackDirection; else {return whiteDirection}}
 const myDirection = (Player) => {if (Player === 'white') return whiteDirection; else {return blackDirection}}
 
