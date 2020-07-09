@@ -8,6 +8,7 @@ const whiteDirection = 1;
 const blackDirection = -1;
 const getOp = (Player) => {if (Player === 'white') return 'black'; else {return 'white'}}
 const opDirection = (Player) => {if (Player === 'white') return blackDirection; else {return whiteDirection}}
+const myDirection = (Player) => {if (Player === 'white') return whiteDirection; else {return blackDirection}}
 
 function checkMovesInDirections(directions, Player, i, j){
     let moves = [];
@@ -145,7 +146,7 @@ function isChecked(Player, i, j){
     if (isCheckedFromDirection(bishopDirections, Player, i, j, 'bishop')) return true;
     if (isCheckedFromDirection(rookDirections, Player, i, j, 'rook')) return true;
     if (isCheckedFromSurrondings(knightDirections, Player, i, j, 'knight')) return true;
-    if (isCheckedFromSurrondings([[-1, opDirection(Player)], [1, opDirection(Player)]], Player, i, j, 'pawn')) return true;
+    if (isCheckedFromSurrondings([[-1, myDirection(Player)], [1, myDirection(Player)]], Player, i, j, 'pawn')) return true;
     if (isCheckedFromSurrondings(royalDirections, Player, i, j, 'king')) return true;
     return false;
 }
