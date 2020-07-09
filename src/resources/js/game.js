@@ -6,6 +6,8 @@ const whiteStart = 1;
 const blackStart = 8;
 const whiteDirection = 1;
 const blackDirection = -1;
+const getOp = (Player) => {if (Player === 'white') return 'black'; else {return 'white'}}
+const opDirection = (Player) => {if (Player === 'white') return blackDirection; else {return whiteDirection}}
 
 function checkMovesInDirections(directions, Player, i, j){
     let moves = [];
@@ -85,15 +87,15 @@ function pawnMoves(Player, i, j){
 
 function kingMoves(Player, i, j){
     return checkStepInDirection(royalDirections, Player, i , j).filter(function(field){
-                                                        !isChecked(Player, field.i, field.j)
-    }).concat(castlingCheck(Player));
+                                                                return !isChecked(Player, field.i, field.j)
+                                                                }).concat(castlingCheck(Player));
 }
 
 function castlingCheck(Player){
     let moves = [];
-    if (Player === 'white') {
-    const start = whiteStart
-    }else{const start  = blackStart};
+    let start;
+    if (Player === 'white') {start = whiteStart;}
+    else {start  = blackStart};
     if (Board[5][start].occupyingFigure.type === 'king' && Board[5][start].occupyingFigure.color === Player){
         if (isChecked(Player, 5, start)) return moves;
         if (Board[1][start].occupyingFigure.type === 'rook' && Board[1][start].occupyingFigure.color === Player){
@@ -117,7 +119,7 @@ function isCheckedFromDirection(directions, Player, i, j, figure){
         while (ii > 0 && jj > 0 && ii < 9 && jj < 9) {
             if (Board[ii][jj].occupyingFigure.color === Player) {
                 break;
-            } else if (Board[ii][jj].occupyingFigure.color === op) {
+            } else if (Board[ii][jj].occupyingFigure.color === getOp(Player)) {
                 if (Board[ii][jj].occupyingFigure.type === 'queen' ||
                     Board[ii][jj].occupyingFigure.type === figure) {
                     return true;
@@ -130,32 +132,21 @@ function isCheckedFromDirection(directions, Player, i, j, figure){
     return false;
 }
 
-function isChecked(Player, i, j){
-    if (Player === 'white') {
-        const op = 'black';
-        const opDirection = blackDirection;
+function isCheckedFromSurrondings(directions, Player, i , j, type){
+    for (const direction of directions){
+        if (i+direction[0] < 9 && i+direction[0] > 0 && j+direction[1] > 0 && j+direction[1] < 9 &&
+            Board[i+direction[0]][j+direction[1]].occupyingFigure.type === type &&
+            Board[i+direction[0]][j+direction[1]].occupyingFigure.color === getOp(Player)) return true;
     }
-    else {
-        const op = 'white';
-        const opDirection = whiteDirection;
-    }
+    return false;
+}
 
+function isChecked(Player, i, j){
     if (isCheckedFromDirection(bishopDirections, Player, i, j, 'bishop')) return true;
     if (isCheckedFromDirection(rookDirections, Player, i, j, 'rook')) return true;
-
-    for (const direction of knightDirections){
-        if (i+direction[0] < 9 && i+direction[0] > 0 && j+direction[1] > 0 && j+direction[1] < 9 &&
-            Board[i+direction[0]][j+direction[1]].occupyingFigure.type === 'knight' &&
-            Board[i+direction[0]][j+direction[1]].occupyingFigure.color === op) return true;
-    }
-
-    for (const direction of [[-1, opDirection], [1, opDirection]]){
-            if (Board[i+direction[0]][j+direction[1]].occupyingFigure.type === 'pawn' &&
-                Board[i+direction[0]][j+direction[1]].occupyingFigure.color === op){
-                return true
-            }
-        }
-
+    if (isCheckedFromSurrondings(knightDirections, Player, i, j, 'knight')) return true;
+    if (isCheckedFromSurrondings([[-1, opDirection(Player)], [1, opDirection(Player)]], Player, i, j, 'pawn')) return true;
+    if (isCheckedFromSurrondings(royalDirections, Player, i, j, 'king')) return true;
     return false;
 }
 

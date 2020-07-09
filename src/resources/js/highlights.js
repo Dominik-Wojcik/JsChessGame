@@ -27,6 +27,8 @@ function highlightOn(img) {
             case "knight":
                 moves = knightMoves(figure.color, i, j);
                 break;
+            case "king":
+                moves = kingMoves(figure.color, i, j);
         }
         for (element of moves) {
             document.getElementById(getSymbol(element)).className = "highlighted";
@@ -90,13 +92,13 @@ function proceedToNextTurn(){
     if (activePlayer === 'white') {activePlayer = 'black'}
     else {activePlayer = 'white'};
     removeHighlightAfterMove();
-    cleanAndBackupGameState();
+    BackupGameState();
     flipBoard();
     switchTimers();
     clearLastField();
 }
 
-function cleanAndBackupGameState(){
+function BackupGameState(){
     localStorage.setItem('Board', JSON.stringify(Board));
     updateBoard();
 }
