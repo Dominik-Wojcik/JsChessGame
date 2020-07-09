@@ -19,6 +19,13 @@ function getSymbol(field) {
     return symbol;
 }
 
+function getNumbersFromSymbol(symbol) {
+    let splittedSymbol = symbol.split("");
+    let i = splittedSymbol[0].charCodeAt(0) - 96;
+    let j = parseInt(splittedSymbol[1]);
+    return [i, j];
+}
+
 for (let i=1; i<9; i++){
     Board[i] = [];
     for (let j=1; j<9; j++)

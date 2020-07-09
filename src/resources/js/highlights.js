@@ -4,11 +4,9 @@ let field;
 function highlightOn(img) {
     img.parentElement.className = "highlighted";
     let parentId = img.parentElement.id;
-    parentId = parentId.split("");
-    let i = parentId[0].charCodeAt(0) - 96;
-    let j = parseInt(parentId[1]);
-    console.log(i, j);
-    console.log(Board[i][j]);
+    let numbers = getNumbersFromSymbol(parentId);
+    let i = numbers[0];
+    let j = numbers[1];
     field = Board[i][j];
     let figure = Board[i][j].occupyingFigure;
     switch(figure.type) {
@@ -39,9 +37,7 @@ function highlightOn(img) {
 function highlightOff(img) {
     img.parentElement.className = "field";
         let parentId = img.parentElement.id;
-        parentId = parentId.split("");
-        let j = parentId[0].charCodeAt(0) - 96;
-        let i = parentId[1];
+        let i, j = getNumbersFromSymbol(parentId)
         for (element of moves) {
             document.getElementById(getSymbol(element)).className = "field";
             document.getElementById(getSymbol(element)).removeAttribute("ondrop");
@@ -54,18 +50,31 @@ function allowDrop(ev) {
 
 let lastField;
 
-function clearLastField() {
-    lastField.className = "field";
-    console.log(lastField);
-}
-
 function drag(ev) {
-    lastField = ev.target.parentElement;
-    ev.dataTransfer.setData("text", lastField.id);
+    lastField = ev.target.parentElement.id;
+    ev.dataTransfer.setData("text", lastField);
 }
 
 function drop(ev) {
     ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data).children[0]);
+    const data = ev.dataTransfer.getData("text");
+    let lastFieldNumbers = getNumbersFromSymbol(data);
+    let i = lastFieldNumbers[0];
+    let j = lastFieldNumbers[1];
+    let type = Board[i][j].occupyingFigure.type;
+    Board[i][j].occupyingFigure.type="none";
+    Board[i][j].occupyingFigure.color="none";
+    let thisFieldNumbers = getNumbersFromSymbol(ev.target.id);
+    let ii = thisFieldNumbers[0];
+    let jj = thisFieldNumbers[1];
+    Board[ii][jj].occupyingFigure.color = "white";
+    Board[ii][jj].occupyingFigure.type = type;
+    console.log(Board[ii][jj]);
+    clearLastField();
+    updateBoard();
+}
+
+function clearLastField() {
+    lastField.className = "field";
+    console.log(lastField);
 }
