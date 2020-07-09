@@ -71,6 +71,7 @@ function drop(ev) {
     Board[ii][jj].occupyingFigure.type = type;
     console.log(Board[ii][jj]);
     clearLastField();
+    localStorage.setItem('Board', JSON.stringify(Board));
     updateBoard();
 }
 
