@@ -86,14 +86,30 @@ function drop(ev) {
     Board[ii][jj].occupyingFigure.color = activePlayer;
     Board[ii][jj].occupyingFigure.type = type;
     document.getElementById("move-hisory").innerHTML += ("<p>" + getSymbol(Board[i][j]) + " => " + getSymbol(Board[ii][jj]) + "</p>");
-    updateKingsPosition(Board[ii][jj]);
-    checkForPromotion(Board[ii][jj]);
+    updateKingsPosition(Board[ii][jj], Board[i][j]);
+    checkForPromotion(Board[i][j], Board[ii][jj]);
     proceedToNextTurn();
 }
 
-function updateKingsPosition(field){
+function checkForCastling(field1, field2){
+    if (field1.i - field2.i === -2){
+        Board[1][field1.j].occupyingFigure.type = 'none';
+        Board[1][field1.j].occupyingFigure.color = 'none';
+        Board[3][field1.j].occupyingFigure.type = 'rook';
+        Board[3][field1.j].occupyingFigure.color = activePlayer;
+    }
+    if (field1.i - field2.i === 2){
+        Board[8][field1.j].occupyingFigure.type = 'none';
+        Board[8][field1.j].occupyingFigure.color = 'none';
+        Board[5][field1.j].occupyingFigure.type = 'rook';
+        Board[5][field1.j].occupyingFigure.color = activePlayer;
+    }
+}
+
+function updateKingsPosition(field, field2){
     if (field.occupyingFigure.type === 'king'){
         Kings[activePlayer] = [field.i, field.j];
+        checkForCastling(field, field2);
     }
 }
 
