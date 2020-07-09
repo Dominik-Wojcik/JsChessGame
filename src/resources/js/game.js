@@ -24,9 +24,9 @@ function checkMovesInDirections(directions, Player, i, j){
     return moves;
 }
 
-function knightMoves(Player, i, j){
+function checkStepInDirection(directions, player, i, j){
     let moves = [];
-    for (const direction of knightDirections){
+    for (const direction of directions){
         let ii = i + direction[0];
         let jj = j + direction[1];
         if (ii > 0 && jj > 0 && ii < 9 && jj < 9){
@@ -36,6 +36,22 @@ function knightMoves(Player, i, j){
         }
     }
     return moves;
+}
+
+function knightMoves(Player, i, j){
+    checkStepInDirection(knightDirections, Player, i, j);
+}
+
+function rookMoves(Player, i, j){
+    return checkMovesInDirections(rookDirections, Player, i, j);
+}
+
+function bishopMoves(Player, i, j){
+    return checkMovesInDirections(bishopDirections, Player, i, j);
+}
+
+function queenMoves(Player, i, j){
+    return checkMovesInDirections(royalDirections, Player, i, j);
 }
 
 function pawnMoves(Player, i, j){
@@ -61,26 +77,10 @@ function pawnMoves(Player, i, j){
     return moves;
 }
 
-function rookMoves(Player, i, j){
-    return checkMovesInDirections(rookDirections, Player, i, j);
-}
-
-function bishopMoves(Player, i, j){
-    return checkMovesInDirections(bishopDirections, Player, i, j);
-}
-
-function queenMoves(Player, i, j){
-    return checkMovesInDirections(royalDirections, Player, i, j);
-}
-
 function kingMoves(Player, i, j){
-    let moves = [];
-    for (const direction of royalDirections){
-        if (Board[i+direction[0]][j+direction[1]].occupyingFigure.color !== Player && !isChecked(Player, i+direction[0], j+direction[1])){
-            moves.push(Board[i+direction[0]][j+direction[1]]);
-        }
-    }
-    return moves;
+    return checkStepInDirection(royalDirections, Player, i , j).filter(function(field){
+                                                        !isChecked(Player, field.i, field.j)
+    });
 }
 
 function isCheckedFromDirection(directions, Player, i, j, figure){
