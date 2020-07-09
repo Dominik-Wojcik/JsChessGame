@@ -73,7 +73,12 @@ function drop(ev) {
     let type = Board[i][j].occupyingFigure.type;
     Board[i][j].occupyingFigure.type="none";
     Board[i][j].occupyingFigure.color="none";
-    let thisFieldNumbers = getNumbersFromSymbol(ev.target.id);
+    let thisFieldNumbers;
+    if (ev.target.id){
+        thisFieldNumbers = getNumbersFromSymbol(ev.target.id);
+    } else {
+        thisFieldNumbers = getNumbersFromSymbol(ev.target.parentNode.id)
+    }
     let ii = thisFieldNumbers[0];
     let jj = thisFieldNumbers[1];
     Board[ii][jj].occupyingFigure.color = activePlayer;
