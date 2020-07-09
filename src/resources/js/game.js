@@ -193,19 +193,19 @@ function isChecked(Player, i, j){
         }
     }
 
-    for (direction of [[2, 1], [1, 2], [-1, -2], [-2, -1], [2, -1], [-2, 1], [-1, 2], [1, -2]]){
+    for (let direction of [[2, 1], [1, 2], [-1, -2], [-2, -1], [2, -1], [-2, 1], [-1, 2], [1, -2]]){
         if (i+direction[0] < 9 && i+direction[0] > 0 && j+direction[1] > 0 && j+direction[1] < 9 &&
             Board[i+direction[0]][j+direction[1]].occupyingFigure.type === 'knight' &&
             Board[i+direction[0]][j+direction[1]].occupyingFigure.color === op) return true;
     }
 
-    for (direction of [[-1,opDirection],[1,opDirection]]){
+    for (let direction of [[-1,opDirection],[1,opDirection]]){
             if (Board[i+direction[0]][j+direction[1]].occupyingFigure.type === 'pawn' &&
                 Board[i+direction[0]][j+direction[1]].occupyingFigure.color === op){
                 return true
             }
         }
-    
+
     return false;
 }
 
@@ -276,4 +276,4 @@ function updateBoard() {
     }
 }
 
-
+updateBoard();
