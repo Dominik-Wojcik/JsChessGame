@@ -4,12 +4,19 @@ function Player(color){
 
 let Board = [];
 isOccupied = (field) => field.occupyingFigure.type !== 'none';
-figuresPicture = (figure) => "<img src=\"/JsChessGame/src/resources/images/" + figure.color + "-" + figure.type + ".png\">"
+figuresPicture = (figure) => "<img draggable=\"true\" ondragstart=\"drag(event)\" ondragend=\"clearLastField()\" onmouseover=\"highlightOn(this)\" onmouseout=\"highlightOff(this)\" src=\"/JsChessGame/src/resources/images/" + figure.color + "-" + figure.type + ".png\">"
 
 function Field(i, j){
     this.i=i;
     this.j=j;
     this.occupyingFigure = new FigureOnBoard('none', 'none');
+}
+
+function getSymbol(field) {
+    console.log(field.i, field.j)
+    let symbol = String.fromCharCode(field.i+96) + field.j.toString();
+    console.log(symbol);
+    return symbol;
 }
 
 for (let i=1; i<9; i++){

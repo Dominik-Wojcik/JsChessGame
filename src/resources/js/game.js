@@ -88,8 +88,9 @@ function kingMoves(Player, i, j){
 
 function castlingCheck(Player){
     let moves = [];
-    if (Player === 'white') const start = whiteStart;
-    else const start  = blackStart;
+    if (Player === 'white') {
+    const start = whiteStart
+    }else{const start  = blackStart};
     if (Board[5][start].occupyingFigure.type === 'king' && Board[5][start].occupyingFigure.color === Player){
         if (isChecked(Player, 5, start)) return moves;
         if (Board[1][start].occupyingFigure.type === 'rook' && Board[1][start].occupyingFigure.color === Player){
