@@ -1,4 +1,8 @@
 let activePlayer;
+Players = [];
+Players.push(new Player('white'));
+Players.push(new Player('black'));
+Figures = [];
 
 function Player(color){
     this.color = color;
@@ -82,11 +86,6 @@ function buildFiguresArray() {
     Figures.push(new Pawn(5, 1, 'queen'));
     Figures.push(new Pawn(4, 1, 'king'));
 }
-
-Players = [];
-Players.push(new Player('white'));
-Players.push(new Player('black'));
-Figures = [];
 
 function initialSetup(){
     buildFiguresArray();

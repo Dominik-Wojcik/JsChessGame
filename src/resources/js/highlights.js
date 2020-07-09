@@ -30,7 +30,7 @@ function highlightOn(img) {
             case "king":
                 moves = kingMoves(figure.color, i, j);
         }
-        for (element of moves) {
+        for (const element of moves) {
             document.getElementById(getSymbol(element)).className = "highlighted";
             document.getElementById(getSymbol(element)).setAttribute("ondrop", "drop(event)");
             document.getElementById(getSymbol(element)).setAttribute("ondragover", "allowDrop(event)");
@@ -85,8 +85,15 @@ function drop(ev) {
     let jj = thisFieldNumbers[1];
     Board[ii][jj].occupyingFigure.color = activePlayer;
     Board[ii][jj].occupyingFigure.type = type;
+    updateKingsPosition(Board[ii][jj]);
     checkForPromotion(Board[ii][jj]);
     proceedToNextTurn();
+}
+
+function updateKingsPosition(field){
+    if (field.occupyingFigure.type === 'king'){
+        Kings[activePlayer] = [field.i, field.j];
+    }
 }
 
 function checkForPromotion(field){

@@ -10,6 +10,10 @@ const getOp = (Player) => {if (Player === 'white') return 'black'; else {return 
 const getPromotionArea = (Player) => {if (Player === 'white') return blackStart; else {return whiteStart}}
 const opDirection = (Player) => {if (Player === 'white') return blackDirection; else {return whiteDirection}}
 const myDirection = (Player) => {if (Player === 'white') return whiteDirection; else {return blackDirection}}
+let Kings = {
+    'black': [4, 1],
+    'white': [4, 8]
+}
 
 function checkMovesInDirections(directions, Player, i, j){
     let moves = [];
