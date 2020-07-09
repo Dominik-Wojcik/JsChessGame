@@ -88,6 +88,7 @@ function pawnMoves(Player, i, j){
     }
     if (i+1 < 9 && Board[i+1][j+direction].occupyingFigure.color === opColor) moves.push(Board[i+1][j+direction]);
     if (i-1 > 0 && Board[i-1][j+direction].occupyingFigure.color === opColor) moves.push(Board[i-1][j+direction]);
+    // if (j === getPromotionArea(activePlayer) + opDirection(activePlayer) && )
     return moves;
 }
 
@@ -102,16 +103,17 @@ function castlingCheck(Player){
     let start;
     if (Player === 'white') {start = whiteStart;}
     else {start  = blackStart};
-    if (Board[5][start].occupyingFigure.type === 'king' && Board[5][start].occupyingFigure.color === Player){
-        if (isChecked(Player, 5, start)) return moves;
-        if (Board[1][start].occupyingFigure.type === 'rook' && Board[1][start].occupyingFigure.color === Player){
-            if (Board[2][start].type === 'none' && Board[3][start].type === 'none' && Board[4][start].type === 'none') {
-                if (!isChecked(Player, 4, start) && !isChecked(Player, 3, start)) moves.push(Board[3][start]);
+    if (Board[4][start].occupyingFigure.type === 'king' && Board[4][start].occupyingFigure.color === Player){
+        if (isChecked(Player, 4, start)) return moves;
+        if (Board[8][start].occupyingFigure.type === 'rook' && Board[8][start].occupyingFigure.color === Player){
+            if (Board[7][start].occupyingFigure.type === 'none' && Board[6][start].occupyingFigure.type === 'none' &&
+                Board[5][start].occupyingFigure.type === 'none') {
+                if (!isChecked(Player, 5, start) && !isChecked(Player, 6, start)) moves.push(Board[6][start]);
             }
         }
-        if (Board[8][start].occupyingFigure.type === 'rook' && Board[8][start].occupyingFigure.color === Player){
-            if (Board[6][start].type === 'none' && Board[7][start].type === 'none'){
-                if (!isChecked(Player, 6, start) && !isChecked(Player, 7, start)) moves.push(Board[7][start]);
+        if (Board[1][start].occupyingFigure.type === 'rook' && Board[1][start].occupyingFigure.color === Player){
+            if (Board[2][start].occupyingFigure.type === 'none' && Board[3][start].occupyingFigure.type === 'none'){
+                if (!isChecked(Player, 2, start) && !isChecked(Player, 3, start)) moves.push(Board[2][start]);
             }
         }
     }
