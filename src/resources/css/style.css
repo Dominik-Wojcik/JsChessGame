@@ -131,3 +131,9 @@ input{
     width: 4em;
     height: 4em;
 }
+
+.lastMoves {
+    background: red !important;
+    width: 4em;
+    height: 4em;
+}

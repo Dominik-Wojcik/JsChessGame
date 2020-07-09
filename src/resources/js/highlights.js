@@ -1,5 +1,6 @@
 let moves;
 let field;
+let lastField;
 
 function highlightOn(img) {
     img.parentElement.className = "highlighted";
@@ -9,28 +10,29 @@ function highlightOn(img) {
     let j = numbers[1];
     field = Board[i][j];
     let figure = Board[i][j].occupyingFigure;
-    switch(figure.type) {
-        case "rook":
-            moves = rookMoves(figure.color, i, j);
-            break;
-        case "pawn":
-            moves = pawnMoves(figure.color, i, j);
-            break;
-        case "bishop":
-            moves = bishopMoves(figure.color, i, j);
-            break;
-        case "queen":
-            moves = queenMoves(figure.color, i, j);
-            break;
-        case "knight":
-            moves = knightMoves(figure.color, i, j);
-            break;
-    }
-    console.log(moves);
-    for (element of moves) {
-        document.getElementById(getSymbol(element)).className = "highlighted";
-        document.getElementById(getSymbol(element)).setAttribute("ondrop", "drop(event)");
-        document.getElementById(getSymbol(element)).setAttribute("ondragover", "allowDrop(event)");
+    if (figure.color === activePlayer) {
+        switch (figure.type) {
+            case "rook":
+                moves = rookMoves(figure.color, i, j);
+                break;
+            case "pawn":
+                moves = pawnMoves(figure.color, i, j);
+                break;
+            case "bishop":
+                moves = bishopMoves(figure.color, i, j);
+                break;
+            case "queen":
+                moves = queenMoves(figure.color, i, j);
+                break;
+            case "knight":
+                moves = knightMoves(figure.color, i, j);
+                break;
+        }
+        for (element of moves) {
+            document.getElementById(getSymbol(element)).className = "highlighted";
+            document.getElementById(getSymbol(element)).setAttribute("ondrop", "drop(event)");
+            document.getElementById(getSymbol(element)).setAttribute("ondragover", "allowDrop(event)");
+        }
     }
 }
 
@@ -38,21 +40,28 @@ function highlightOff(img) {
     img.parentElement.className = "field";
         let parentId = img.parentElement.id;
         let i, j = getNumbersFromSymbol(parentId)
-        for (element of moves) {
+        for (const element of moves) {
             document.getElementById(getSymbol(element)).className = "field";
             document.getElementById(getSymbol(element)).removeAttribute("ondrop");
             document.getElementById(getSymbol(element)).removeAttribute("ondragover");
         }
 }
+
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
-let lastField;
-
 function drag(ev) {
     lastField = ev.target.parentElement.id;
     ev.dataTransfer.setData("text", lastField);
+}
+
+function removeHighlightAfterMove(){
+    for (const element of moves) {
+        document.getElementById(getSymbol(element)).className = "field";
+        document.getElementById(getSymbol(element)).removeAttribute("ondrop");
+        document.getElementById(getSymbol(element)).removeAttribute("ondragover");
+    }
 }
 
 function drop(ev) {
@@ -69,17 +78,26 @@ function drop(ev) {
     let jj = thisFieldNumbers[1];
     Board[ii][jj].occupyingFigure.color = activePlayer;
     Board[ii][jj].occupyingFigure.type = type;
-    console.log(Board[ii][jj]);
-    clearLastField();
+    proceedToNextTurn();
+}
+
+function proceedToNextTurn(){
     if (activePlayer === 'white') {activePlayer = 'black'}
     else {activePlayer = 'white'};
-    localStorage.setItem('Board', JSON.stringify(Board));
-    updateBoard();
+    removeHighlightAfterMove();
+    cleanAndBackupGameState();
     flipBoard();
     switchTimers();
+    clearLastField();
+}
+
+function cleanAndBackupGameState(){
+    localStorage.setItem('Board', JSON.stringify(Board));
+    updateBoard();
 }
 
 function clearLastField() {
-    lastField.className = "field";
-    console.log(lastField);
+    document.getElementById(lastField).className = "field";
+    document.getElementById(lastField).removeAttribute("ondrop");
+    document.getElementById(lastField).removeAttribute("ondragover");
 }
