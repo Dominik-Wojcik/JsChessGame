@@ -1,3 +1,6 @@
+const bishopDirections = [[1, 1], [-1, 1], [-1, -1], [1, -1]];
+const rookDirections = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
 function checkMovesInDirections(directions, Player, i, j){
     let moves = [];
     for (const direction of directions){
@@ -58,13 +61,11 @@ function pawnMoves(Player, i, j){
 }
 
 function rookMoves(Player, i, j){
-    const directions = [[1, 0], [-1, 0], [0, 1],[0, -1]];
-    return checkMovesInDirections(directions, Player, i, j);
+    return checkMovesInDirections(rookDirections, Player, i, j);
 }
 
 function bishopMoves(Player, i, j){
-    const directions = [[1, 1], [-1, 1], [-1, -1], [1, -1]];
-    return checkMovesInDirections(directions, Player, i, j);
+    return checkMovesInDirections(bishopDirections, Player, i, j);
 }
 
 function queenMoves(Player, i, j){
@@ -76,11 +77,31 @@ function kingMoves(Player, i, j){
     let moves = [];
     let directions = [[1, 1], [-1, 1], [-1, -1], [1, -1], [1, 0], [-1, 0], [0, 1],[0, -1]];
     for (const direction of directions){
-        if (!isChecked(Player, i+direction[0], j+direction[1]) && Board[i+direction[0]][j+direction[1]].occupyingFigure.color !== Player){
+        if (Board[i+direction[0]][j+direction[1]].occupyingFigure.color !== Player && !isChecked(Player, i+direction[0], j+direction[1])){
             moves.push(Board[i+direction[0]][j+direction[1]]);
         }
     }
     return moves;
+}
+
+function isCheckedFromDirection(directions, Player, i, j, figure){
+    for (const direction of directions) {
+        let ii = i + direction[0];
+        let jj = j + direction[1];
+        while (ii > 0 && jj > 0 && ii < 9 && jj < 9) {
+            if (Board[ii][jj].occupyingFigure.color === Player) {
+                break;
+            } else if (Board[ii][jj].occupyingFigure.color === op) {
+                if (Board[ii][jj].occupyingFigure.type === 'queen' ||
+                    Board[ii][jj].occupyingFigure.type === figure) {
+                    return true;
+                } else break;
+            }
+            ii += direction[0];
+            jj += direction[1];
+        }
+    }
+    return false;
 }
 
 function isChecked(Player, i, j){
@@ -93,39 +114,8 @@ function isChecked(Player, i, j){
         const opDirection = 1;
     }
 
-    for (const direction of [[1, 1], [-1, 1], [-1, -1], [1, -1]]) {
-        let ii = i + direction[0];
-        let jj = j + direction[1];
-        while (ii > 0 && jj > 0 && ii < 9 && jj < 9) {
-            if (Board[ii][jj].occupyingFigure.color === Player) {
-                break;
-            } else if (Board[ii][jj].occupyingFigure.color === op) {
-                if (Board[ii][jj].occupyingFigure.type === 'queen' ||
-                    Board[ii][jj].occupyingFigure.type === 'bishop') {
-                    return true;
-                } else break;
-            }
-            ii += direction[0];
-            jj += direction[1];
-        }
-    }
-
-    for (const direction of  [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
-        let ii = i + direction[0];
-        let jj = j + direction[1];
-        while (ii > 0 && jj > 0 && ii < 9 && jj < 9) {
-            if (Board[ii][jj].occupyingFigure.color === Player) {
-                break;
-            } else if (Board[ii][jj].occupyingFigure.color === op) {
-                if (Board[ii][jj].occupyingFigure.type === 'queen' ||
-                    Board[ii][jj].occupyingFigure.type === 'rook') {
-                    return true;
-                } else break;
-            }
-            ii += direction[0];
-            jj += direction[1];
-        }
-    }
+    if (isCheckedFromDirection(bishopDirections, Player, i, j, 'bishop')) return true;
+    if (isCheckedFromDirection(rookDirections, Player, i, j, 'rook')) return true;
 
     for (const direction of [[2, 1], [1, 2], [-1, -2], [-2, -1], [2, -1], [-2, 1], [-1, 2], [1, -2]]){
         if (i+direction[0] < 9 && i+direction[0] > 0 && j+direction[1] > 0 && j+direction[1] < 9 &&
