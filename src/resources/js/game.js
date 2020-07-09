@@ -141,7 +141,7 @@ function queenMoves(Player, i, j){
 function kingMoves(Player, i, j){
     let moves = [];
     let directions = [[1, 1], [-1, 1], [-1, -1], [1, -1], [1, 0], [-1, 0], [0, 1],[0, -1]];
-    for (direction of direstions){
+    for (let direction of directions){
         if (!isChecked(Player, i+direction[0], j+direction[1]) && Board[i+direction[0]][j+direction[1]].occupyingFigure.color !== Player){
             moves.push(Board[i+direction[0]][j+direction[1]]);
         }
@@ -159,7 +159,7 @@ function isChecked(Player, i, j){
         let opDirection = 1;
     }
 
-    for (direction of [[1, 1], [-1, 1], [-1, -1], [1, -1]]) {
+    for (let direction of [[1, 1], [-1, 1], [-1, -1], [1, -1]]) {
         let ii = i + direction[0];
         let jj = j + direction[1];
         while (ii > 0 && jj > 0 && ii < 9 && jj < 9) {
@@ -176,7 +176,7 @@ function isChecked(Player, i, j){
         }
     }
 
-    for (direction of  [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+    for (let direction of  [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
         let ii = i + direction[0];
         let jj = j + direction[1];
         while (ii > 0 && jj > 0 && ii < 9 && jj < 9) {
@@ -199,7 +199,7 @@ function isChecked(Player, i, j){
             Board[i+direction[0]][j+direction[1]].occupyingFigure.color === op) return true;
     }
 
-    for (let direction of [[-1,opDirection],[1,opDirection]]){
+    for (let direction of [[-1, opDirection],[1, opDirection]]){
             if (Board[i+direction[0]][j+direction[1]].occupyingFigure.type === 'pawn' &&
                 Board[i+direction[0]][j+direction[1]].occupyingFigure.color === op){
                 return true
@@ -241,8 +241,8 @@ function buildFiguresArray() {
     addTwoCorrespondingFigures(1, 'rook');
     addTwoCorrespondingFigures(2, 'knight');
     addTwoCorrespondingFigures(3, 'bishop');
-    Figures.push(new Pawn(4, 1, 'queen'));
-    Figures.push(new Pawn(5, 1, 'king'));
+    Figures.push(new Pawn(5, 1, 'queen'));
+    Figures.push(new Pawn(4, 1, 'king'));
 }
 
 Players = [];
