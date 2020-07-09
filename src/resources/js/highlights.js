@@ -67,12 +67,16 @@ function drop(ev) {
     let thisFieldNumbers = getNumbersFromSymbol(ev.target.id);
     let ii = thisFieldNumbers[0];
     let jj = thisFieldNumbers[1];
-    Board[ii][jj].occupyingFigure.color = "white";
+    Board[ii][jj].occupyingFigure.color = activePlayer;
     Board[ii][jj].occupyingFigure.type = type;
     console.log(Board[ii][jj]);
     clearLastField();
+    if (activePlayer === 'white') {activePlayer = 'black'}
+    else {activePlayer = 'white'};
     localStorage.setItem('Board', JSON.stringify(Board));
     updateBoard();
+    flipBoard();
+    switchTimers();
 }
 
 function clearLastField() {

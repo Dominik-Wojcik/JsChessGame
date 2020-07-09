@@ -1,3 +1,5 @@
+let activePlayer;
+
 function Player(color){
     this.color = color;
 }
@@ -90,6 +92,7 @@ Figures = [];
 
 function initialSetup(){
     buildFiguresArray();
+    activePlayer = 'white';
     for (Player of Players){
         for (figure of Figures){
             figure.placeOnBoard(Player);
