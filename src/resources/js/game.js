@@ -124,7 +124,7 @@ function isCheckedFromDirection(directions, Player, i, j, figure){
         let jj = j + direction[1];
         while (ii > 0 && jj > 0 && ii < 9 && jj < 9) {
             if (Board[ii][jj].occupyingFigure.color === Player) {
-                break;
+                if (Board[ii][jj].occupyingFigure.type !== 'king') break;
             } else if (Board[ii][jj].occupyingFigure.color === getOp(Player)) {
                 if (Board[ii][jj].occupyingFigure.type === 'queen' ||
                     Board[ii][jj].occupyingFigure.type === figure) {
