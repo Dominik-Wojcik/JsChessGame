@@ -3,14 +3,13 @@ Players = [];
 Players.push(new Player('white'));
 Players.push(new Player('black'));
 Figures = [];
+let Board = [];
+isOccupied = (field) => field.occupyingFigure.type !== 'none';
+figuresPicture = (figure) => "<img draggable=\"true\" ondragstart=\"drag(event)\" ondragend=\"clearLastField()\" onmouseover=\"highlightOn(this)\" onmouseout=\"highlightOff(this)\" src=\"/JsChessGame/src/resources/images/" + figure.color + "-" + figure.type + ".png\">"
 
 function Player(color){
     this.color = color;
 }
-
-let Board = [];
-isOccupied = (field) => field.occupyingFigure.type !== 'none';
-figuresPicture = (figure) => "<img draggable=\"true\" ondragstart=\"drag(event)\" ondragend=\"clearLastField()\" onmouseover=\"highlightOn(this)\" onmouseout=\"highlightOff(this)\" src=\"/JsChessGame/src/resources/images/" + figure.color + "-" + figure.type + ".png\">"
 
 function Field(i, j){
     this.i=i;
@@ -39,16 +38,6 @@ for (let i=1; i<9; i++){
 function FigureOnBoard(type, color){
     this.type = type;
     this.color = color;
-    this.availableMoves = function(Player) {
-        switch (this.type) {
-            case 'pawn': pawnMoves(Player);
-            case 'rook': rookMoves(Player);
-            case 'bishop': bishopMoves(Player);
-            case 'queen': queenMoves(Player);
-            case 'knight': knightMoves(Player);
-            case 'king': kingMoves(Player);
-        }
-    }
 }
 
 function Pawn(x, y, type){
@@ -89,12 +78,12 @@ function buildFiguresArray() {
 
 function initialSetup(){
     buildFiguresArray();
+    activePlayer = 'white';
     for (let i=1; i<9; i++){
         Board[i] = [];
         for (let j=1; j<9; j++)
             Board[i][j] = new Field(i,j);
     }
-    activePlayer = 'white';
     for (Player of Players){
         for (figure of Figures){
             figure.placeOnBoard(Player);

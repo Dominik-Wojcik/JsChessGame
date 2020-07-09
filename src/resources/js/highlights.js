@@ -85,6 +85,7 @@ function drop(ev) {
     let jj = thisFieldNumbers[1];
     Board[ii][jj].occupyingFigure.color = activePlayer;
     Board[ii][jj].occupyingFigure.type = type;
+    document.getElementById("move-hisory").innerHTML += ("<p>" + getSymbol(Board[i][j]) + " => " + getSymbol(Board[ii][jj]) + "</p>");
     updateKingsPosition(Board[ii][jj]);
     checkForPromotion(Board[ii][jj]);
     proceedToNextTurn();
