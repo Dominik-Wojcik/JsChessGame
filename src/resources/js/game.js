@@ -1,5 +1,7 @@
 const bishopDirections = [[1, 1], [-1, 1], [-1, -1], [1, -1]];
 const rookDirections = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+const knightDirections = [[2, 1], [1, 2], [-1, -2], [-2, -1], [2, -1], [-2, 1], [-1, 2], [1, -2]];
+const royalDirections = [[1, 1], [-1, 1], [-1, -1], [1, -1], [1, 0], [-1, 0], [0, 1],[0, -1]];
 
 function checkMovesInDirections(directions, Player, i, j){
     let moves = [];
@@ -24,8 +26,7 @@ function checkMovesInDirections(directions, Player, i, j){
 
 function knightMoves(Player, i, j){
     let moves = [];
-    let directions = [[2, 1], [1, 2], [-1, -2], [-2, -1], [2, -1], [-2, 1], [-1, 2], [1, -2]];
-    for (const direction of directions){
+    for (const direction of knightDirections){
         let ii = i + direction[0];
         let jj = j + direction[1];
         if (ii > 0 && jj > 0 && ii < 9 && jj < 9){
@@ -69,14 +70,12 @@ function bishopMoves(Player, i, j){
 }
 
 function queenMoves(Player, i, j){
-    let directions = [[1, 1], [-1, 1], [-1, -1], [1, -1], [1, 0], [-1, 0], [0, 1],[0, -1]];
-    return checkMovesInDirections(directions, Player, i, j);
+    return checkMovesInDirections(royalDirections, Player, i, j);
 }
 
 function kingMoves(Player, i, j){
     let moves = [];
-    let directions = [[1, 1], [-1, 1], [-1, -1], [1, -1], [1, 0], [-1, 0], [0, 1],[0, -1]];
-    for (const direction of directions){
+    for (const direction of royalDirections){
         if (Board[i+direction[0]][j+direction[1]].occupyingFigure.color !== Player && !isChecked(Player, i+direction[0], j+direction[1])){
             moves.push(Board[i+direction[0]][j+direction[1]]);
         }
@@ -117,7 +116,7 @@ function isChecked(Player, i, j){
     if (isCheckedFromDirection(bishopDirections, Player, i, j, 'bishop')) return true;
     if (isCheckedFromDirection(rookDirections, Player, i, j, 'rook')) return true;
 
-    for (const direction of [[2, 1], [1, 2], [-1, -2], [-2, -1], [2, -1], [-2, 1], [-1, 2], [1, -2]]){
+    for (const direction of knightDirections){
         if (i+direction[0] < 9 && i+direction[0] > 0 && j+direction[1] > 0 && j+direction[1] < 9 &&
             Board[i+direction[0]][j+direction[1]].occupyingFigure.type === 'knight' &&
             Board[i+direction[0]][j+direction[1]].occupyingFigure.color === op) return true;
