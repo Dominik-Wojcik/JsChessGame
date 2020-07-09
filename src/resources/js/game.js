@@ -2,6 +2,10 @@ const bishopDirections = [[1, 1], [-1, 1], [-1, -1], [1, -1]];
 const rookDirections = [[1, 0], [-1, 0], [0, 1], [0, -1]];
 const knightDirections = [[2, 1], [1, 2], [-1, -2], [-2, -1], [2, -1], [-2, 1], [-1, 2], [1, -2]];
 const royalDirections = [[1, 1], [-1, 1], [-1, -1], [1, -1], [1, 0], [-1, 0], [0, 1],[0, -1]];
+const whiteStart = 1;
+const blackStart = 8;
+const whiteDirection = 1;
+const blackDirection = -1;
 
 function checkMovesInDirections(directions, Player, i, j){
     let moves = [];
@@ -24,7 +28,7 @@ function checkMovesInDirections(directions, Player, i, j){
     return moves;
 }
 
-function checkStepInDirection(directions, player, i, j){
+function checkStepInDirection(directions, Player, i, j){
     let moves = [];
     for (const direction of directions){
         let ii = i + direction[0];
@@ -56,11 +60,14 @@ function queenMoves(Player, i, j){
 
 function pawnMoves(Player, i, j){
     let moves = [];
-    let start = 1;
-    let direction = 1;
-    if (Player!=='white'){
-        start += 7;
-        direction *= -1;
+    if (Player === 'white'){
+        const start = whiteStart;
+        const direction = whiteDirection;
+        const opColor = 'black';
+    } else {
+        const start = blackStart;
+        const direction = blackDirection;
+        const opColor = 'white';
     }
     if (!isOccupied(Board[i][j+direction])){
         moves.push(Board[i][j+direction]);
@@ -68,19 +75,19 @@ function pawnMoves(Player, i, j){
             moves.push(Board[i][j+2*direction]);
         }
     }
-    if (i+1 < 9 && isOccupied(Board[i+1][j+direction])){
-        if (Board[i+1][j+direction].occupyingFigure.color !== Player) moves.push(Board[i+1][j+direction]);
-    }
-    if (i-1 > 0 && isOccupied(Board[i-1][j+direction])){
-        if (Board[i-1][j+direction].occupyingFigure.color !== Player) moves.push(Board[i-1][j+direction]);
-    }
+    if (i+1 < 9 && Board[i+1][j+direction].occupyingFigure.color === opColor) moves.push(Board[i+1][j+direction]);
+    if (i-1 > 0 && Board[i-1][j+direction].occupyingFigure.color === opColor) moves.push(Board[i-1][j+direction]);
     return moves;
 }
 
 function kingMoves(Player, i, j){
     return checkStepInDirection(royalDirections, Player, i , j).filter(function(field){
                                                         !isChecked(Player, field.i, field.j)
-    });
+    }).concat(castlingCheck(Player));
+}
+
+function castlingCheck(Player){
+
 }
 
 function isCheckedFromDirection(directions, Player, i, j, figure){
@@ -106,11 +113,11 @@ function isCheckedFromDirection(directions, Player, i, j, figure){
 function isChecked(Player, i, j){
     if (Player === 'white') {
         const op = 'black';
-        const opDirection = -1;
+        const opDirection = blackDirection;
     }
     else {
         const op = 'white';
-        const opDirection = 1;
+        const opDirection = whiteDirection;
     }
 
     if (isCheckedFromDirection(bishopDirections, Player, i, j, 'bishop')) return true;
@@ -122,7 +129,7 @@ function isChecked(Player, i, j){
             Board[i+direction[0]][j+direction[1]].occupyingFigure.color === op) return true;
     }
 
-    for (const direction of [[-1, opDirection],[1, opDirection]]){
+    for (const direction of [[-1, opDirection], [1, opDirection]]){
             if (Board[i+direction[0]][j+direction[1]].occupyingFigure.type === 'pawn' &&
                 Board[i+direction[0]][j+direction[1]].occupyingFigure.color === op){
                 return true
