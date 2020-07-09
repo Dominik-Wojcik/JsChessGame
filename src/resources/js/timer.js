@@ -36,7 +36,6 @@ function startTimer() {
                 times[turn]--;
                 document.getElementById(turn + "-time").innerText = getTime(times[turn]);
                 if (times[turn] === 0) {
-                    alert("TIME." + switchColor(turn).slice(1) + switchColor(turn).slice(1) + " wins. Congratulations!");
                     document.getElementById("prompter").innerHTML = turn.charAt(0).toUpperCase() + turn.slice(1) + " ran out of time! " + switchColor(turn) + " won!";
                     clearInterval(timer);
                     timer = false;
