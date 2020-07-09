@@ -266,7 +266,7 @@ function updateBoard() {
     let Board = JSON.parse(localStorage.getItem('Board'));
     for (let i=1; i<9; i++){
         for (let j=1; j<9; j++){
-            let id = String.fromCharCode(j+96) + i.toString();
+            let id = String.fromCharCode(i+96) + j.toString();
             if (isOccupied(Board[i][j])) {
                 document.getElementById(id).innerHTML = figuresPicture(Board[i][j].occupyingFigure);
             } else {
