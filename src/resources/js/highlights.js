@@ -5,8 +5,8 @@ function highlightOn(img) {
     img.parentElement.className = "highlighted";
     let parentId = img.parentElement.id;
     parentId = parentId.split("");
-    let j = parentId[0].charCodeAt(0) - 96;
-    let i = parseInt(parentId[1]);
+    let i = parentId[0].charCodeAt(0) - 96;
+    let j = parseInt(parentId[1]);
     console.log(i, j);
     console.log(Board[i][j]);
     field = Board[i][j];
