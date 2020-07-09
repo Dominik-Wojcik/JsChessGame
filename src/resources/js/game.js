@@ -11,7 +11,7 @@ function Field(i, j){
 }
 function getSymbol(field) {
         console.log(field.i, field.j)
-        let symbol = String.fromCharCode(field.i+96) + field.j.toString();
+        let symbol = String.fromCharCode(field.j+96) + field.i.toString();
         console.log(symbol);
         return symbol;
     }
@@ -23,7 +23,7 @@ for (let i=1; i<9; i++){
 }
 
 isOccupied = (field) => field.occupyingFigure.type !== 'none';
-figuresPicture = (figure) => "<img onmouseover=\"highlightOn(this)\" onmouseout=\"highlightOff(this)\" src=\"/JsChessGame/src/resources/images/" + figure.color + "-" + figure.type + ".png\">"
+figuresPicture = (figure) => "<img draggable=\"true\" ondragstart=\"drag(event)\" ondragend=\"clearLastField()\" onmouseover=\"highlightOn(this)\" onmouseout=\"highlightOff(this)\" src=\"/JsChessGame/src/resources/images/" + figure.color + "-" + figure.type + ".png\">"
 
 function FigureOnBoard(type, color){
     this.type = type;

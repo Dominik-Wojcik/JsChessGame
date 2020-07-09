@@ -1,4 +1,5 @@
 let moves;
+let field;
 
 function highlightOn(img) {
     img.parentElement.className = "highlighted";
@@ -8,6 +9,7 @@ function highlightOn(img) {
     let i = parseInt(parentId[1]);
     console.log(i, j);
     console.log(Board[i][j]);
+    field = Board[i][j];
     let figure = Board[i][j].occupyingFigure;
     switch(figure.type) {
         case "rook":
@@ -29,6 +31,8 @@ function highlightOn(img) {
     console.log(moves);
     for (element of moves) {
         document.getElementById(getSymbol(element)).className = "highlighted";
+        document.getElementById(getSymbol(element)).setAttribute("ondrop", "drop(event)");
+        document.getElementById(getSymbol(element)).setAttribute("ondragover", "allowDrop(event)");
     }
 }
 
@@ -38,10 +42,30 @@ function highlightOff(img) {
         parentId = parentId.split("");
         let j = parentId[0].charCodeAt(0) - 96;
         let i = parentId[1];
-//        for (let b = j; b < j+2; b++){
-//            let id = String.fromCharCode(b+96) + i.toString();
-//            document.getElementById(id).className = "field";
         for (element of moves) {
             document.getElementById(getSymbol(element)).className = "field";
+            document.getElementById(getSymbol(element)).removeAttribute("ondrop");
+            document.getElementById(getSymbol(element)).removeAttribute("ondragover");
         }
+}
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+let lastField;
+
+function clearLastField() {
+    lastField.className = "field";
+    console.log(lastField);
+}
+
+function drag(ev) {
+    lastField = ev.target.parentElement;
+    ev.dataTransfer.setData("text", lastField.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data).children[0]);
 }
