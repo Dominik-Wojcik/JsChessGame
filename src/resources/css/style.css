@@ -22,13 +22,13 @@ h3, h4{
 
 #board{
     display: inline-flex;
-    flex-direction: column;
+    flex-direction: column; /*column-reverse for fliping board*/
     border: 0.1em black solid;
 }
 
 #board > *{
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /*row-reverse for fliping board*/
 }
 
 .mark-row{
