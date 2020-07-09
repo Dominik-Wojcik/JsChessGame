@@ -43,7 +43,7 @@ function checkStepInDirection(directions, Player, i, j){
 }
 
 function knightMoves(Player, i, j){
-    checkStepInDirection(knightDirections, Player, i, j);
+    return checkStepInDirection(knightDirections, Player, i, j);
 }
 
 function rookMoves(Player, i, j){
@@ -60,14 +60,17 @@ function queenMoves(Player, i, j){
 
 function pawnMoves(Player, i, j){
     let moves = [];
+    let start;
+    let direction;
+    let opColor;
     if (Player === 'white'){
-        const start = whiteStart;
-        const direction = whiteDirection;
-        const opColor = 'black';
+        start = whiteStart;
+        direction = whiteDirection;
+        opColor = 'black';
     } else {
-        const start = blackStart;
-        const direction = blackDirection;
-        const opColor = 'white';
+        start = blackStart;
+        direction = blackDirection;
+        opColor = 'white';
     }
     if (!isOccupied(Board[i][j+direction])){
         moves.push(Board[i][j+direction]);
