@@ -13,6 +13,8 @@ const myDirection = (Player) => {if (Player === 'white') return whiteDirection; 
 let Kings = {
     'black': [4, 1],
     'white': [4, 8]
+    // TODO: implement check/check for every figure move
+    // TODO: implement wincon check
 }
 
 function checkMovesInDirections(directions, Player, i, j){
@@ -88,7 +90,9 @@ function pawnMoves(Player, i, j){
     }
     if (i+1 < 9 && Board[i+1][j+direction].occupyingFigure.color === opColor) moves.push(Board[i+1][j+direction]);
     if (i-1 > 0 && Board[i-1][j+direction].occupyingFigure.color === opColor) moves.push(Board[i-1][j+direction]);
-    // if (j === getPromotionArea(activePlayer) + opDirection(activePlayer) && )
+    if (j === getPromotionArea(activePlayer) + (3*opDirection(activePlayer))){
+        // TODO: implement en passant
+    }
     return moves;
 }
 
