@@ -85,10 +85,15 @@ function drop(ev) {
     let jj = thisFieldNumbers[1];
     Board[ii][jj].occupyingFigure.color = activePlayer;
     Board[ii][jj].occupyingFigure.type = type;
-    document.getElementById("move-hisory").innerHTML += ("<p>" + getSymbol(Board[i][j]) + " => " + getSymbol(Board[ii][jj]) + "</p>");
+    updateHistory(Board[i][j], Board[ii][jj]);
     updateKingsPosition(Board[ii][jj], Board[i][j]);
     checkForPromotion(Board[i][j], Board[ii][jj]);
     proceedToNextTurn();
+}
+
+function updateHistory(field1, field2){
+    document.getElementById("move-hisory").innerHTML += ("<p>" + getSymbol(field1) + " => " + getSymbol(field2) + "</p>");
+    // TODO: implement extraction of information from history
 }
 
 function checkForCastling(field1, field2){
