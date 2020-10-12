@@ -1,0 +1,139 @@
+#container{
+    display: inline-flex;
+    flex-direction: column;
+    /*align-items: center;*/
+    /*justify-content: center;*/
+
+}
+
+body {
+    text-align: center;
+}
+
+h3, h4{
+    margin-bottom: 0;
+}
+
+.field{
+    width: 4em;
+    height: 4em;
+    /*border: 0.1em black solid;*/
+}
+
+#board{
+    display: inline-flex;
+    flex-direction: column; /*column-reverse for fliping board*/
+    border: 0.1em black solid;
+}
+
+#board > *{
+    display: flex;
+    flex-direction: row; /*row-reverse for fliping board*/
+}
+
+.mark-row{
+    display: inline-flex;
+    justify-content: space-around;
+    margin-right: 1em;
+    margin-left: 1em;
+}
+
+.mark, .mark-vertical{
+    margin: 0.5em;
+}
+
+.mark-vertical{
+    margin-top: 1em;
+}
+
+/* Black fields - ugly CSS*/
+#a1, #a3, #a5, #a7, #c1, #c3, #c5, #c7, #e1, #e3, #e5, #e7, #g1, #g3, #g5, #g7,
+#b2, #b4, #b6, #b8, #d2, #d4, #d6, #d8, #f2, #f4, #f6, #f8, #h2, #h4, #h6, #h8{
+    background: rgba(115, 40, 2, 0.44);
+    z-index: 0;
+}
+
+button {
+    margin: 1em 5em;
+    width: 10.5em;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 1em 1.5em;
+    border: none;
+}
+
+.openbutton{
+    position: absolute;
+    top: 1em;
+    left: -0.5em;
+}
+
+#white-time, #black-time{
+    font-size: 3em;
+    position: absolute;
+    top: 4em;
+}
+
+#white-time{
+    left: 6em;
+}
+
+#black-time{
+    right: 6em;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+input{
+    width: 4em;
+    margin-top: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding: 0.5em;
+}
+
+#setup-time{
+    display: inline-flex;
+}
+
+.sidepanel {
+    height: 40em;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: white;
+    border-right: 0.1em black solid;
+    border-bottom: 0.1em black solid;
+    overflow-x: hidden;
+    padding-top: 2em;
+    transition: 0.5s; /*sliding effect*/
+}
+
+
+.sidepanel .closebutton {
+    text-decoration: none;
+    color: #252123;
+    position: absolute;
+    top: 0;
+    right: 0.6em;
+    font-size: 3em;
+    margin-left: 12em;
+}
+
+.highlighted {
+    background: green !important;
+    width: 4em;
+    height: 4em;
+}
+
+.lastMoves {
+    background: red !important;
+    width: 4em;
+    height: 4em;
+}
